@@ -3,66 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mock Netflix</title>
+    <title>Mock ChatGPT</title>
     <style>
         body, html {
+            height: 100%;
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background-color: #141414;
-            color: white;
+            background-color: #fafafa;
         }
-        .header {
+        .chat-container {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
             align-items: center;
-            padding: 10px 50px;
-            background-color: #141414;
+            justify-content: space-between;
         }
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
+        .chat-history {
+            width: 90%;
+            height: 90%;
+            overflow-y: auto;
+            margin: 10px 0;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .menu {
-            list-style: none;
+        .message {
+            margin: 5px;
+            padding: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            width: fit-content;
+        }
+        .user-message {
+            align-self: flex-end;
+            background-color: #4caf50;
+            color: #fff;
+        }
+        .input-area {
+            width: 90%;
             display: flex;
         }
-        .menu li {
-            margin-left: 20px;
-        }
-        .menu a {
-            text-decoration: none;
-            color: white;
-            font-size: 16px;
-        }
-        .button {
-            padding: 10px 20px;
-            background-color: red;
+        input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
             border: none;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #4caf50;
             color: white;
-            font-size: 16px;
             cursor: pointer;
+            border-radius: 3px;
         }
     </style>
 </head>
 <body>
-    <header class="header">
-        <div class="logo">Mockflix</div>
-        <ul class="menu">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">TV Shows</a></li>
-            <li><a href="#">Movies</a></li>
-            <li><a href="#">New & Popular</a></li>
-            <li><a href="#">My List</a></li>
-        </ul>
-        <button class="button">Sign In</button>
-    </header>
+    <div class="chat-container">
+        <div class="chat-history">
+            <div class="message user-message">Hi there! How can I help?</div>
+        </div>
+        <div class="input-area">
+            <input type="text" placeholder="Type your message here...">
+            <button>Send</button>
+        </div>
+    </div>
 
-    <!-- Content section with placeholder images -->
-    <section style="padding: 20px;">
-        <h2>Featured Content</h2>
-        <img src="https://via.placeholder.com/400x300" alt="Featured Movie">
-        <p>Description of the featured content goes here...</p>
-    </section>
+    <script>
+        document.querySelector('button').onclick = function() {
+            var input = document.querySelector('input[type="text"]');
+            var message = input.value;
+            input.value = '';
+            if(message.trim()) {
+                var chatHistory = document.querySelector('.chat-history');
+                var newMessage = document.createElement('div');
+                newMessage.classList.add('message', 'user-message');
+                newMessage.textContent = message;
+                chatHistory.appendChild(newMessage);
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }
+        };
+    </script>
 </body>
 </html>
